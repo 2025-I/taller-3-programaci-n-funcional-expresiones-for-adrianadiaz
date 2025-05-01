@@ -38,39 +38,40 @@ class ManiobrasTrenes {
     }
   }
   def definirManiobra(t1: Tren, t2: Tren): Maniobra = {
-    var movimientos: Maniobra = List()
-    var estado: Estado = (t1, List(), List())
+    // Usamos val en lugar de var para mantener la inmutabilidad
+    val movimientos: Maniobra = List()
+    val estadoInicial: Estado = (t1, List(), List())
 
-    for (vagonObjetivo <- t2) {
+    // Usamos foldLeft para acumular el estado y los movimientos de manera funcional
+    val (movimientosFinales, _) = t2.foldLeft((movimientos, estadoInicial)) { case ((movsAcumulados, estado), vagonObjetivo) =>
       val (t1_actual, _, _) = estado
       val indexEnT1 = t1_actual.indexOf(vagonObjetivo)
 
       if (indexEnT1 != -1) {
         val largoT1 = t1_actual.length
 
-        // Llevar el vagon a t2
+        // Generamos los movimientos para llevar el vagón al lugar correcto
         val movs = List(
-          Uno(largoT1 - indexEnT1),   // Mover n vagones a t2
-          Dos(indexEnT1),            // Mover solo el deseado a t3
+          Uno(largoT1 - indexEnT1), // Mover n vagones a t2
+          Dos(indexEnT1), // Mover solo el deseado a t3
           Uno(-(largoT1 - indexEnT1)), // Devolver los demás a t1
-          Dos(-indexEnT1)            // Traer de vuelta el deseado desde t3 a inicio de t1
+          Dos(-indexEnT1) // Traer de vuelta el deseado desde t3 a inicio de t1
         )
 
-        movimientos = movimientos ::: movs
-        estado = aplicarMovimientos(estado, movs).last
-        // El vagon ya está en su lugar, lo quitamos de la cabeza para seguir con el resto
-        estado = (estado._1.tail, estado._2, estado._3)
+        // Aplicamos los movimientos y actualizamos el estado
+        val nuevoEstado = aplicarMovimientos(estado, movs).last
+        // Actualizamos el estado eliminando el vagón procesado de t1
+        val estadoActualizado = (nuevoEstado._1.tail, nuevoEstado._2, nuevoEstado._3)
+
+        // Devolvemos el acumulado de movimientos y el estado actualizado
+        (movsAcumulados ::: movs, estadoActualizado)
+      } else {
+        // Si no encontramos el vagón, devolvemos el estado y movimientos acumulados sin cambios
+        (movsAcumulados, estado)
       }
     }
 
-    movimientos
+    // Retornamos los movimientos acumulados
+    movimientosFinales
   }
-
-
-
-
-
-
-
-
 }
