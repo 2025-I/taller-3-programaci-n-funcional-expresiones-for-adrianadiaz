@@ -20,8 +20,17 @@ class PruebaDefinirManiobras extends AnyFunSuite {
     assert(tf == ef)
   }
 
-  test("Small Test") {
-    // Listas de tamaño 100 vagones y movimientos
+  test("Small Test 100 movimientos") {
+    val obj = new ManiobrasTrenes()
+    val vagones = (0 until 100).toList.map(i => s"a$i")
+    val vagonesObjetivo = vagones.reverse
+    val movs = obj.definirManiobra(vagones, vagonesObjetivo)
+    val ei = (vagones, List(), List())
+    val tf = obj.aplicarMovimientos(ei, movs).last
+    val ef = (vagonesObjetivo, List(), List())
+
+    assert(tf == ef)
+
   }
   test("Medium Test"){
     // Listas de tamaño 500 vagones y movimientos

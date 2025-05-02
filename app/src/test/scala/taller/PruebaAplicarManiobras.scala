@@ -40,14 +40,75 @@ class PruebaAplicarManiobras extends AnyFunSuite {
     val e10 = obj.aplicarMovimiento(e9, Uno(-2))
     assert(e10 == (List('a','b','c','d','f','g','e'), List('h','i','j'), List()))
   }
-  test("Small Test") {
-    // Listas de tamaño 100 vagones y movimientos
-  }
-  test("Medium Test"){
-    // Listas de tamaño 500 vagones y movimientos
-  }
-  test("Big Test"){
-    // Listas de tamaño 1000 vagones y movimientos
+  test("Test de 100") {
 
+    val obj = new ManiobrasTrenes()
+
+    val letras: List[Char] = ('a' to 'k').toList
+    var estado: (List[Char], List[Char], List[Char]) = (letras, List(), List())
+
+    val rand = new scala.util.Random(42)
+
+    val movimientos: List[Movimiento] = (0 until 101).map { i =>
+      val n = rand.between(-3, 6)
+      if (i % 2 == 0) Uno(n) else Dos(n)
+    }.toList
+
+    for ((mov, i) <- movimientos.zipWithIndex) {
+      val nuevoEstado = obj.aplicarMovimiento(estado, mov).asInstanceOf[(List[Char], List[Char], List[Char])]
+      val combinados = nuevoEstado._1 ++ nuevoEstado._2 ++ nuevoEstado._3
+
+      assert(
+        combinados.sorted == letras.sorted
+      )
+
+    }
+  }
+
+  test("Test de 500") {
+
+    val obj = new ManiobrasTrenes()
+
+    val letras: List[Char] = ('a' to 'k').toList
+    var estado: (List[Char], List[Char], List[Char]) = (letras, List(), List())
+
+    val rand = new scala.util.Random(42)
+
+    val movimientos: List[Movimiento] = (0 until 501).map { i =>
+      val n = rand.between(-4, 20)
+      if (i % 2 == 0) Uno(n) else Dos(n)
+    }.toList
+
+    for ((mov, i) <- movimientos.zipWithIndex) {
+      val nuevoEstado = obj.aplicarMovimiento(estado, mov).asInstanceOf[(List[Char], List[Char], List[Char])]
+      val combinados = nuevoEstado._1 ++ nuevoEstado._2 ++ nuevoEstado._3
+
+      assert(
+        combinados.sorted == letras.sorted
+      )
+
+    }
+  }
+
+  test("Test de 1000"){
+
+    val obj = new ManiobrasTrenes()
+
+    val letras: List[Char] = ('a' to 'k').toList
+    var estado: (List[Char], List[Char], List[Char]) = (letras, List(), List())
+
+    val rand = new scala.util.Random(42)
+
+    val movimientos: List[Movimiento] = (0 until 1001).map { i =>
+      val n = rand.between(-30, 60)
+      if (i % 2 == 0) Uno(n) else Dos(n)
+    }.toList
+
+    for ((mov, i) <- movimientos.zipWithIndex) {
+      val nuevoEstado = obj.aplicarMovimiento(estado, mov).asInstanceOf[(List[Char], List[Char], List[Char])]
+      val combinados = nuevoEstado._1 ++ nuevoEstado._2 ++ nuevoEstado._3
+      assert(
+        combinados.sorted == letras.sorted)
+    }
   }
 }

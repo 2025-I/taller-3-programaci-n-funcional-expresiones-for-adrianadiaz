@@ -41,8 +41,6 @@ class PruebaAplicarMovimientos extends AnyFunSuite {
       (List('d','e','c','a'), List('b','f','g'), List('h','i','j')),
       (List('d','e','c'), List('b','f','g'), List('a','h','i','j'))
     )
-
-
     assert(res == esperado)
   }
 
