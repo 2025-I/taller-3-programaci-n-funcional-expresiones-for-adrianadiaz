@@ -6,6 +6,7 @@ package taller
 import org.scalatest.funsuite.AnyFunSuite
 import org.junit.runner.RunWith
 import org.scalatestplus.junit.JUnitRunner
+import scala.util.Random
 
 @RunWith(classOf[JUnitRunner])
 class PruebaAplicarMovimientos extends AnyFunSuite {
@@ -46,16 +47,62 @@ class PruebaAplicarMovimientos extends AnyFunSuite {
 
 
   test("Small Test") {
-    // Listas de tamaño 100 vagones y movimientos
+    val obj = new ManiobrasTrenes()
+    val e = (List('a','b','c','d'), List('e'), List('f','i'))
+
+    val movs: List[Movimiento] = List.fill(100) {
+      Random.nextInt(2) match {
+        case 0 => Uno(Random.between(-4, 5))  // Uno va de -4 a 4
+        case 1 => Dos(Random.between(-3, 4))  // Dos va de -3 a 3
+      }
+    }
+
+    val res = obj.aplicarMovimientos(e, movs)
+
+    assert(movs.length == 100)
+    assert(res.length == 101)
+
+    println("Estados después de aplicar los movimientos:")
+    res.foreach(println)
   }
-  test("Medium Test"){
-    // Listas de tamaño 500 vagones y movimientos
+  test("Medium Test") {
+    val obj = new ManiobrasTrenes()
+    val e = (List('a','b','c','d'), List('e','f','g'), List('h','i'))
+
+    // Generar 1000 movimientos aleatorios dentro de los rangos del patrón original
+    val movs: List[Movimiento] = List.fill(500) {
+      Random.nextInt(2) match {
+        case 0 => Uno(Random.between(-4, 5))  // Uno va de -4 a 4
+        case 1 => Dos(Random.between(-3, 4))  // Dos va de -3 a 3
+      }
+    }
+
+    val res = obj.aplicarMovimientos(e, movs)
+
+    assert(movs.length == 500)
+    assert(res.length == 501)
+
+    println("Estados después de aplicar los movimientos:")
+    res.foreach(println)
   }
-  test("Big Test"){
-    // Listas de tamaño 1000 vagones y movimientos
+  test("Big Test") {
+    val obj = new ManiobrasTrenes()
+    val e = (List('a','b','c','d','e'), List('f','g'), List('h','i','j'))
 
+    // Generar 1000 movimientos aleatorios dentro de los rangos del patrón original
+    val movs: List[Movimiento] = List.fill(1000) {
+      Random.nextInt(2) match {
+        case 0 => Uno(Random.between(-4, 5))  // Uno va de -4 a 4
+        case 1 => Dos(Random.between(-3, 4))  // Dos va de -3 a 3
+      }
+    }
+
+    val res = obj.aplicarMovimientos(e, movs)
+
+    assert(movs.length == 1000)
+    assert(res.length == 1001)
+
+    println("Estados después de aplicar los movimientos:")
+    res.foreach(println)
   }
-
-
-
 }
