@@ -48,6 +48,7 @@ val obj = new ManiobrasTrenes()
 ```
 Se crea una instancia de la clase que contiene los metodos de maniobras.
 
+
 ### Definición de Vagones
 ```scala
 val letras: List[Char] = ('a' to 'k').toList
