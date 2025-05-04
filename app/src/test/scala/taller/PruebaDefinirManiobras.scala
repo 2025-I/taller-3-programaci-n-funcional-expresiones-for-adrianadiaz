@@ -32,6 +32,30 @@ class PruebaDefinirManiobras extends AnyFunSuite {
     assert(tf == ef)
 
   }
+  test("Small Test 100 movimientos caso 2") {
+    val obj = new ManiobrasTrenes()
+    val vagones = (0 until 100).toList.map(i => s"a$i")
+    val vagonesObjetivo = vagones.reverse
+    val movs = obj.definirManiobra(vagones, vagonesObjetivo)
+    val ei = (vagones, List(), List())
+    val tf = obj.aplicarMovimientos(ei, movs).last
+    val ef = (vagonesObjetivo, List(), List())
+
+    assert(tf == ef)
+
+  }
+  test("Small Test 100 movimientos caso 3") {
+    val obj = new ManiobrasTrenes()
+    val vagones = (0 until 100).toList.map(i => s"a$i")
+    val vagonesObjetivo = vagones.reverse
+    val movs = obj.definirManiobra(vagones, vagonesObjetivo)
+    val ei = (vagones, List(), List())
+    val tf = obj.aplicarMovimientos(ei, movs).last
+    val ef = (vagonesObjetivo, List(), List())
+
+    assert(tf == ef)
+
+  }
   test("Medium Test"){
     val obj = new ManiobrasTrenes()
     val vagones = (0 until 500).toList.map(i => s"a$i")
@@ -44,7 +68,55 @@ class PruebaDefinirManiobras extends AnyFunSuite {
     assert(tf == ef)
 
   }
+  test("Medium Test caso 2"){
+    val obj = new ManiobrasTrenes()
+    val vagones = (0 until 500).toList.map(i => s"a$i")
+    val vagonesObjetivo = vagones.reverse
+    val movs = obj.definirManiobra(vagones, vagonesObjetivo)
+    val ei = (vagones, List(), List())
+    val tf = obj.aplicarMovimientos(ei, movs).last
+    val ef = (vagonesObjetivo, List(), List())
+
+    assert(tf == ef)
+
+  }
+  test("Medium Test caso 3"){
+    val obj = new ManiobrasTrenes()
+    val vagones = (0 until 500).toList.map(i => s"a$i")
+    val vagonesObjetivo = vagones.reverse
+    val movs = obj.definirManiobra(vagones, vagonesObjetivo)
+    val ei = (vagones, List(), List())
+    val tf = obj.aplicarMovimientos(ei, movs).last
+    val ef = (vagonesObjetivo, List(), List())
+
+    assert(tf == ef)
+
+  }
   test("Big Test"){
+    val obj = new ManiobrasTrenes()
+    val vagones = (0 until 1000).toList.map(i => s"a$i")
+    val vagonesObjetivo = vagones.reverse
+    val movs = obj.definirManiobra(vagones, vagonesObjetivo)
+    val ei = (vagones, List(), List())
+    val tf = obj.aplicarMovimientos(ei, movs).last
+    val ef = (vagonesObjetivo, List(), List())
+
+    assert(tf == ef)
+
+  }
+  test("Big Test caso 2"){
+    val obj = new ManiobrasTrenes()
+    val vagones = (0 until 1000).toList.map(i => s"a$i")
+    val vagonesObjetivo = vagones.reverse
+    val movs = obj.definirManiobra(vagones, vagonesObjetivo)
+    val ei = (vagones, List(), List())
+    val tf = obj.aplicarMovimientos(ei, movs).last
+    val ef = (vagonesObjetivo, List(), List())
+
+    assert(tf == ef)
+
+  }
+  test("Big Test caso 3"){
     val obj = new ManiobrasTrenes()
     val vagones = (0 until 1000).toList.map(i => s"a$i")
     val vagonesObjetivo = vagones.reverse
