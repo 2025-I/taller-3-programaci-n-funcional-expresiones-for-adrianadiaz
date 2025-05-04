@@ -1,6 +1,7 @@
 /**
  * Prueba de aplicar movimiento
  */
+
 package taller
 
 import org.scalatest.funsuite.AnyFunSuite
@@ -52,6 +53,42 @@ class PruebaAplicarManiobras extends AnyFunSuite {
       assert(combinados.sorted == letras.sorted)
     }
   }
+  test("Test de 100 caso 2") {
+    val obj = new ManiobrasTrenes()
+    val letras: List[Char] = ('a' to 'k').toList
+    val inicial = (letras: List[Any], List.empty[Any], List.empty[Any])
+
+    val rand = new scala.util.Random(42)
+    val movimientos: List[Movimiento] = (0 until 101).map { i =>
+      val n = rand.between(-3, 6)
+      if (i % 2 == 0) Uno(n) else Dos(n)
+    }.toList
+
+    val estados = movimientos.scanLeft(inicial)(obj.aplicarMovimiento)
+
+    for (estado <- estados.tail) {
+      val combinados = (estado._1 ++ estado._2 ++ estado._3).map(_.asInstanceOf[Char])
+      assert(combinados.sorted == letras.sorted)
+    }
+  }
+  test("Test de 100 caso 3") {
+    val obj = new ManiobrasTrenes()
+    val letras: List[Char] = ('a' to 'k').toList
+    val inicial = (letras: List[Any], List.empty[Any], List.empty[Any])
+
+    val rand = new scala.util.Random(42)
+    val movimientos: List[Movimiento] = (0 until 101).map { i =>
+      val n = rand.between(-3, 6)
+      if (i % 2 == 0) Uno(n) else Dos(n)
+    }.toList
+
+    val estados = movimientos.scanLeft(inicial)(obj.aplicarMovimiento)
+
+    for (estado <- estados.tail) {
+      val combinados = (estado._1 ++ estado._2 ++ estado._3).map(_.asInstanceOf[Char])
+      assert(combinados.sorted == letras.sorted)
+    }
+  }
 
   test("Test de 500") {
     val obj = new ManiobrasTrenes()
@@ -71,8 +108,80 @@ class PruebaAplicarManiobras extends AnyFunSuite {
       assert(combinados.sorted == letras.sorted)
     }
   }
+  test("Test de 500 caso 2") {
+    val obj = new ManiobrasTrenes()
+    val letras: List[Char] = ('a' to 'k').toList
+    val inicial = (letras: List[Any], List.empty[Any], List.empty[Any])
+
+    val rand = new scala.util.Random(42)
+    val movimientos: List[Movimiento] = (0 until 501).map { i =>
+      val n = rand.between(-4, 20)
+      if (i % 2 == 0) Uno(n) else Dos(n)
+    }.toList
+
+    val estados = movimientos.scanLeft(inicial)(obj.aplicarMovimiento)
+
+    for (estado <- estados.tail) {
+      val combinados = (estado._1 ++ estado._2 ++ estado._3).map(_.asInstanceOf[Char])
+      assert(combinados.sorted == letras.sorted)
+    }
+  }
+  test("Test de 500 caso 3") {
+    val obj = new ManiobrasTrenes()
+    val letras: List[Char] = ('a' to 'k').toList
+    val inicial = (letras: List[Any], List.empty[Any], List.empty[Any])
+
+    val rand = new scala.util.Random(42)
+    val movimientos: List[Movimiento] = (0 until 501).map { i =>
+      val n = rand.between(-4, 20)
+      if (i % 2 == 0) Uno(n) else Dos(n)
+    }.toList
+
+    val estados = movimientos.scanLeft(inicial)(obj.aplicarMovimiento)
+
+    for (estado <- estados.tail) {
+      val combinados = (estado._1 ++ estado._2 ++ estado._3).map(_.asInstanceOf[Char])
+      assert(combinados.sorted == letras.sorted)
+    }
+  }
 
   test("Test de 1000") {
+    val obj = new ManiobrasTrenes()
+    val letras: List[Char] = ('a' to 'k').toList
+    val inicial = (letras: List[Any], List.empty[Any], List.empty[Any])
+
+    val rand = new scala.util.Random(42)
+    val movimientos: List[Movimiento] = (0 until 1001).map { i =>
+      val n = rand.between(-30, 60)
+      if (i % 2 == 0) Uno(n) else Dos(n)
+    }.toList
+
+    val estados = movimientos.scanLeft(inicial)(obj.aplicarMovimiento)
+
+    for (estado <- estados.tail) {
+      val combinados = (estado._1 ++ estado._2 ++ estado._3).map(_.asInstanceOf[Char])
+      assert(combinados.sorted == letras.sorted)
+    }
+  }
+  test("Test de 1000 caso 2") {
+    val obj = new ManiobrasTrenes()
+    val letras: List[Char] = ('a' to 'k').toList
+    val inicial = (letras: List[Any], List.empty[Any], List.empty[Any])
+
+    val rand = new scala.util.Random(42)
+    val movimientos: List[Movimiento] = (0 until 1001).map { i =>
+      val n = rand.between(-30, 60)
+      if (i % 2 == 0) Uno(n) else Dos(n)
+    }.toList
+
+    val estados = movimientos.scanLeft(inicial)(obj.aplicarMovimiento)
+
+    for (estado <- estados.tail) {
+      val combinados = (estado._1 ++ estado._2 ++ estado._3).map(_.asInstanceOf[Char])
+      assert(combinados.sorted == letras.sorted)
+    }
+  }
+  test("Test de 1000 caso 3 ") {
     val obj = new ManiobrasTrenes()
     val letras: List[Char] = ('a' to 'k').toList
     val inicial = (letras: List[Any], List.empty[Any], List.empty[Any])

@@ -79,6 +79,73 @@ class PruebaAplicarMovimientos extends AnyFunSuite {
     res.foreach(println)
   }
 
+  test("Small Test Caso 2") {
+    val obj = new ManiobrasTrenes()
+    val vagones = List.range(0, 100).map(i => ('a' + (i % 26)).toChar)
+
+    // Distribuir los vagones iniciales
+    val t1 = vagones.take(33)
+    val t2 = vagones.slice(33, 66)
+    val t3 = vagones.drop(66)
+    val e = (t1, t2, t3)
+
+    val movs = {
+      val lista = scala.collection.mutable.ListBuffer[Movimiento]()
+      for (i <- 0 until 100) {
+        val tamaño = (i % 5) + 2 // Cambio en el tamaño
+        val mov = i % 4 match {
+          case 0 => Uno(tamaño)
+          case 1 => Dos(tamaño)
+          case 2 => Uno(-tamaño)
+          case _ => Dos(-tamaño)
+        }
+        lista += mov
+      }
+      lista.toList
+    }
+
+    val res = obj.aplicarMovimientos(e, movs)
+
+    assert(movs.length == 100)
+    assert(res.length == 101)
+
+    println("Estados después de aplicar los movimientos en Caso 2:")
+    res.foreach(println)
+  }
+  test("Small Test Caso 3") {
+    val obj = new ManiobrasTrenes()
+    val vagones = List.range(0, 100).map(i => ('a' + (i % 26)).toChar)
+
+    // Distribuir los vagones iniciales
+    val t1 = vagones.take(33)
+    val t2 = vagones.slice(33, 66)
+    val t3 = vagones.drop(66)
+    val e = (t1, t2, t3)
+
+    val movs = {
+      val lista = scala.collection.mutable.ListBuffer[Movimiento]()
+      for (i <- 0 until 100) {
+        val tamaño = (i % 5) + 1
+        val mov = i % 4 match {
+          case 0 => Uno(-tamaño) // Cambio en la dirección
+          case 1 => Dos(-tamaño) // Cambio en la dirección
+          case 2 => Uno(tamaño)
+          case _ => Dos(tamaño)
+        }
+        lista += mov
+      }
+      lista.toList
+    }
+
+    val res = obj.aplicarMovimientos(e, movs)
+
+    assert(movs.length == 100)
+    assert(res.length == 101)
+
+    println("Estados después de aplicar los movimientos en Caso 3:")
+    res.foreach(println)
+  }
+
   test("Medium Test") {
     val obj = new ManiobrasTrenes()
     val vagones = List.range(0, 500).map(i => ('a' + (i % 26)).toChar)
@@ -112,6 +179,73 @@ class PruebaAplicarMovimientos extends AnyFunSuite {
     println("Estados después de aplicar los movimientos:")
     res.foreach(println)
   }
+  test("Medium Test Caso 2") {
+    val obj = new ManiobrasTrenes()
+    val vagones = List.range(0, 500).map(i => ('a' + (i % 26)).toChar)
+
+    // Distribuir los vagones iniciales
+    val t1 = vagones.take(500 / 3)
+    val t2 = vagones.slice(500 / 3, 2 * 500 / 3)
+    val t3 = vagones.drop(2 * 500 / 3)
+    val e = (t1, t2, t3)
+
+    val movs = {
+      val lista = scala.collection.mutable.ListBuffer[Movimiento]()
+      for (i <- 0 until 500) {
+        val tamaño = (i % 5) + 3 // Cambio en el tamaño
+        val mov = i % 4 match {
+          case 0 => Uno(tamaño)
+          case 1 => Dos(tamaño)
+          case 2 => Uno(-tamaño)
+          case _ => Dos(-tamaño)
+        }
+        lista += mov
+      }
+      lista.toList
+    }
+
+    val res = obj.aplicarMovimientos(e, movs)
+
+    assert(movs.length == 500)
+    assert(res.length == 500 + 1)
+
+    println("Estados después de aplicar los movimientos en Caso 2:")
+    res.foreach(println)
+  }
+  test("Medium Test Caso 3") {
+    val obj = new ManiobrasTrenes()
+    val vagones = List.range(0, 500).map(i => ('a' + (i % 26)).toChar)
+
+    // Distribuir los vagones iniciales
+    val t1 = vagones.take(500 / 3)
+    val t2 = vagones.slice(500 / 3, 2 * 500 / 3)
+    val t3 = vagones.drop(2 * 500 / 3)
+    val e = (t1, t2, t3)
+
+    val movs = {
+      val lista = scala.collection.mutable.ListBuffer[Movimiento]()
+      for (i <- 0 until 500) {
+        val tamaño = (i % 5) + 1
+        val mov = i % 4 match {
+          case 0 => Uno(-tamaño) // Cambio en la dirección
+          case 1 => Dos(-tamaño) // Cambio en la dirección
+          case 2 => Uno(tamaño)
+          case _ => Dos(tamaño)
+        }
+        lista += mov
+      }
+      lista.toList
+    }
+
+    val res = obj.aplicarMovimientos(e, movs)
+
+    assert(movs.length == 500)
+    assert(res.length == 500 + 1)
+
+    println("Estados después de aplicar los movimientos en Caso 3:")
+    res.foreach(println)
+  }
+
 
   test("Big Test") {
     val obj = new ManiobrasTrenes()
@@ -147,4 +281,71 @@ class PruebaAplicarMovimientos extends AnyFunSuite {
     println("Estados después de aplicar lost movimientos:")
     res.foreach(println)
   }
+  test("Big Test Caso 2") {
+    val obj = new ManiobrasTrenes()
+    val vagones = List.range(0, 1000).map(i => ('a' + (i % 26)).toChar)
+
+    // Distribuir los vagones iniciales
+    val t1 = vagones.take(1000 / 3)
+    val t2 = vagones.slice(1000 / 3, 2 * 1000 / 3)
+    val t3 = vagones.drop(2 * 1000 / 3)
+    val e = (t1, t2, t3)
+
+    val movs = {
+      val lista = scala.collection.mutable.ListBuffer[Movimiento]()
+      for (i <- 0 until 1000) {
+        val tamaño = (i % 5) + 4 // Cambio en el tamaño
+        val mov = i % 4 match {
+          case 0 => Uno(tamaño)
+          case 1 => Dos(tamaño)
+          case 2 => Uno(-tamaño)
+          case _ => Dos(-tamaño)
+        }
+        lista += mov
+      }
+      lista.toList
+    }
+
+    val res = obj.aplicarMovimientos(e, movs)
+
+    assert(movs.length == 1000)
+    assert(res.length == 1000 + 1)
+
+    println("Estados después de aplicar los movimientos en Caso 2:")
+    res.foreach(println)
+  }
+  test("Big Test Caso 3") {
+    val obj = new ManiobrasTrenes()
+    val vagones = List.range(0, 1000).map(i => ('a' + (i % 26)).toChar)
+
+    // Distribuir los vagones iniciales
+    val t1 = vagones.take(1000 / 3)
+    val t2 = vagones.slice(1000 / 3, 2 * 1000 / 3)
+    val t3 = vagones.drop(2 * 1000 / 3)
+    val e = (t1, t2, t3)
+
+    val movs = {
+      val lista = scala.collection.mutable.ListBuffer[Movimiento]()
+      for (i <- 0 until 1000) {
+        val tamaño = (i % 5) + 1
+        val mov = i % 4 match {
+          case 0 => Uno(-tamaño) // Cambio en la dirección
+          case 1 => Dos(-tamaño) // Cambio en la dirección
+          case 2 => Uno(tamaño)
+          case _ => Dos(tamaño)
+        }
+        lista += mov
+      }
+      lista.toList
+    }
+
+    val res = obj.aplicarMovimientos(e, movs)
+
+    assert(movs.length == 1000)
+    assert(res.length == 1000 + 1)
+
+    println("Estados después de aplicar los movimientos en Caso 3:")
+    res.foreach(println)
+  }
+
 }
