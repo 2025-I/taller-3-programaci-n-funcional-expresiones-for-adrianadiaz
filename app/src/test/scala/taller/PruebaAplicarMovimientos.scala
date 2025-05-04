@@ -45,16 +45,29 @@ class PruebaAplicarMovimientos extends AnyFunSuite {
     assert(res == esperado)
   }
 
-
   test("Small Test") {
     val obj = new ManiobrasTrenes()
-    val e = (List('a','b','c','d'), List('e'), List('f','i'))
+    val vagones = List.range(0, 100).map(i => ('a' + (i % 26)).toChar)
 
-    val movs: List[Movimiento] = List.fill(100) {
-      Random.nextInt(2) match {
-        case 0 => Uno(Random.between(-4, 5))  // Uno va de -4 a 4
-        case 1 => Dos(Random.between(-3, 4))  // Dos va de -3 a 3
+    // Distribuir los vagones iniciales
+    val t1 = vagones.take(33)
+    val t2 = vagones.slice(33, 66)
+    val t3 = vagones.drop(66)
+    val e = (t1, t2, t3)
+
+    val movs = {
+      val lista = scala.collection.mutable.ListBuffer[Movimiento]()
+      for (i <- 0 until 100) {
+        val tamaño = (i % 5) + 1
+        val mov = i % 4 match {
+          case 0 => Uno(tamaño)
+          case 1 => Dos(tamaño)
+          case 2 => Uno(-tamaño)
+          case _ => Dos(-tamaño)
+        }
+        lista += mov
       }
+      lista.toList
     }
 
     val res = obj.aplicarMovimientos(e, movs)
@@ -65,44 +78,73 @@ class PruebaAplicarMovimientos extends AnyFunSuite {
     println("Estados después de aplicar los movimientos:")
     res.foreach(println)
   }
+
   test("Medium Test") {
     val obj = new ManiobrasTrenes()
-    val e = (List('a','b','c','d'), List('e','f','g'), List('h','i'))
+    val vagones = List.range(0, 500).map(i => ('a' + (i % 26)).toChar)
 
-    // Generar 1000 movimientos aleatorios dentro de los rangos del patrón original
-    val movs: List[Movimiento] = List.fill(500) {
-      Random.nextInt(2) match {
-        case 0 => Uno(Random.between(-4, 5))  // Uno va de -4 a 4
-        case 1 => Dos(Random.between(-3, 4))  // Dos va de -3 a 3
+    // Distribuir los vagones iniciales
+    val t1 = vagones.take(500 / 3)
+    val t2 = vagones.slice(500 / 3, 2 * 500 / 3)
+    val t3 = vagones.drop(2 * 500 / 3)
+    val e = (t1, t2, t3)
+
+    val movs = {
+      val lista = scala.collection.mutable.ListBuffer[Movimiento]()
+      for (i <- 0 until 500) {
+        val tamaño = (i % 5) + 1
+        val mov = i % 4 match {
+          case 0 => Uno(tamaño)
+          case 1 => Dos(tamaño)
+          case 2 => Uno(-tamaño)
+          case _ => Dos(-tamaño)
+        }
+        lista += mov
       }
+      lista.toList
     }
 
     val res = obj.aplicarMovimientos(e, movs)
 
     assert(movs.length == 500)
-    assert(res.length == 501)
+    assert(res.length == 500 + 1)
 
     println("Estados después de aplicar los movimientos:")
     res.foreach(println)
   }
+
   test("Big Test") {
     val obj = new ManiobrasTrenes()
-    val e = (List('a','b','c','d','e'), List('f','g'), List('h','i','j'))
+    val vagones = List.range(0, 1000).map(i => ('a' + (i % 26)).toChar)
 
-    // Generar 1000 movimientos aleatorios dentro de los rangos del patrón original
-    val movs: List[Movimiento] = List.fill(1000) {
-      Random.nextInt(2) match {
-        case 0 => Uno(Random.between(-4, 5))  // Uno va de -4 a 4
-        case 1 => Dos(Random.between(-3, 4))  // Dos va de -3 a 3
+    // Distribuir los vagones iniciales
+    val t1 = vagones.take(1000 / 3)
+    val t2 = vagones.slice(1000 / 3, 2 * 1000 / 3)
+    val t3 = vagones.drop(2 * 1000 / 3)
+    val e = (t1, t2, t3)
+
+
+    val movs = {
+      val lista = scala.collection.mutable.ListBuffer[Movimiento]()
+      for (i <- 0 until 1000) {
+        val tamaño = (i % 5) + 1
+        val mov = i % 4 match {
+          case 0 => Uno(tamaño)
+          case 1 => Dos(tamaño)
+          case 2 => Uno(-tamaño)
+          case _ => Dos(-tamaño)
+        }
+        lista += mov
       }
+      lista.toList
     }
 
     val res = obj.aplicarMovimientos(e, movs)
 
     assert(movs.length == 1000)
-    assert(res.length == 1001)
+    assert(res.length == 1000 + 1)
 
-    println("Estados después de aplicar los movimientos:")
+    println("Estados después de aplicar lost movimientos:")
     res.foreach(println)
   }
 }
